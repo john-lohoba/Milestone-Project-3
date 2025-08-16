@@ -13,27 +13,29 @@
 
 <div class="container mt-3">
     <div class="row">
-        <table class="table">
-            <thead>
+        <table class="table custom-table">
+            <!-- <thead>
                 <tr>
                     <th scope="col">Date</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
-            </thead>
-            <tbody>
-                {% for absence in absence_list %}
-                {% if user.is_authenticated and absence.user == user %}
+            </thead> -->
+            {% for absence in absence_list %}
+            {% if user.is_authenticated and absence.user == user %}
+            <tbody class="custom-table-body">
                 <tr>
                     <th scope="row"> {{ absence.date }} </th>
                     <td> {{ absence.duration }} </td>
-                    <td><button data-absence_id="{{ absence.id }}" class="btn btn-warning btn-absence-edit">Edit</button></td>
-                    <td><button data-absence_id="{{ absence.id }}" class="btn btn-danger btn-absence-delete">Delete</button></td>
+                    <td><button data-absence_id="{{ absence.id }}"
+                            class="btn custom-button-edit btn-absence-edit">Edit</button></td>
+                    <td><button data-absence_id="{{ absence.id }}"
+                            class="btn custom-button-delete btn-absence-delete">Delete</button></td>
                 </tr>
-                {% endif %}
-                {% endfor %}
             </tbody>
+            {% endif %}
+            {% endfor %}
         </table>
     </div>
     {% if is_paginated %}
@@ -54,7 +56,7 @@
 <div class="container my-3">
     <div class="row justify-content-center">
         <div class="col-12 text-center">
-            <h3>Record Absence</h3>
+            <h2>Record Absence</h2>
         </div>
         <div class="col-8 text-center">
             <form method="post" action="{% url 'absence-post'%}">
@@ -79,8 +81,8 @@
                     {% csrf_token %}
                     {{ absence_form | crispy }}
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="absenceEditButton" type="submit" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn custom-button-primary" data-bs-dismiss="modal">Close</button>
+                        <button id="absenceEditButton" type="submit" class="btn custom-button-edit">Submit</button>
                     </div>
                 </form>
             </div>
@@ -89,7 +91,8 @@
 </div>
 
 <!-- Absence Delete Modal -->
-<div class="modal fade" id="absenceDeleteModal" tabindex="-1" aria-labelledby="absenceDeleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="absenceDeleteModal" tabindex="-1" aria-labelledby="absenceDeleteModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -99,10 +102,10 @@
             <div class="modal-body">
                 <form id="absenceDeleteForm" method="post">
                     Are you sure you want to delete this job?<br>
-                    <strong>This action cannot be undone.</strong> 
+                    <strong>This action cannot be undone.</strong>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <a id="absenceDeleteConfirm" class="btn btn-danger" href="#">Delete</a>
+                        <button type="button" class="btn custom-button-primary" data-bs-dismiss="modal">Close</button>
+                        <a id="absenceDeleteConfirm" class="btn custom-button-delete" href="#">Delete</a>
                     </div>
                 </form>
             </div>

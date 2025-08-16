@@ -27,8 +27,7 @@ totalDelivered.innerText = sumOfCredits;
 // Estimated Update message
 let update = Number(sumOfCredits - sumOfTargets).toFixed(2);
 if (update < 0){
-    estimatedUpdate.innerText = `${update} hrs
-    from target`;
+    estimatedUpdate.innerText = `${update}`;
 } else{
     estimatedUpdate.innerText = update;
 }
