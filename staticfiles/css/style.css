@@ -5,10 +5,12 @@
 :root {
     --primary-font:"Roboto", sans-sefir;
     --secondary-font:"Nunito", sans-sefir;
-    --primary-color:#1F7A8C; /* turquoise */
+    /* --primary-color:#1F7A8C; turquoise */
+    --primary-color:#3E8096;
     --secondary-color:#022B3A; /* dark turquoise */
     --highlight-color:#BFDBF7; /* light blue */
-    --highlight-color-light:#E1E5F2; /* light grey */
+    /* --highlight-color-light:#E1E5F2; light grey */
+    --highlight-color-light:#F0F0F0;
 }
 
 /* Global Styles */
@@ -21,6 +23,7 @@ h1,
 h2,
 h3 {
     font-family: var(--secondary-font);
+    color: var(--secondary-color);
 }
 
 /* Navigation Bar */
@@ -44,4 +47,48 @@ footer {
 .custom-button-primary:hover {
     background-color: var(--highlight-color-light);
     color: var(--primary-color);
+}
+
+.custom-button-edit {
+    background-color: #FADA5E;
+}
+
+.custom-button-edit:hover {
+    background-color: #FFBF00;
+    color: black;
+}
+
+.custom-button-delete {
+    background-color: #E34234;
+    color: white;
+}
+
+.custom-button-delete:hover {
+    background-color: #FF0000;
+    color: white;
+}
+
+/* Tables */
+/* Remove bootstrap bg colour */
+.table{
+    --bs-table-bg: none;
+    --bs-table-color: none;
+}
+
+.custom-table {
+    background-color: var(--highlight-color-light);
+    color: var(--primary-color);
+}
+
+.custom-table-body {
+    border: solid, 8px white;
+}
+
+.custom-update-table {
+    background-color: var(--highlight-color-light);
+    color: var(--primary-color);
+}
+
+#estimatedUpdate {
+    font-size: 2rem;
 }

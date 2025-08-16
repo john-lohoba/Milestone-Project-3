@@ -166,3 +166,7 @@ def absence_delete(request, pk):
         messages.add_message(request, messages.ERROR, 'Error deleting absence')
     
     return redirect('absences')
+
+
+def profile(request):
+    return render(request, "job_tracker/profile.html")
