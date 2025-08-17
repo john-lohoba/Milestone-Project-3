@@ -1,5 +1,5 @@
 from django import forms
-from .models import CompletedJob, Absence
+from .models import CompletedJob, Absence, ProfileTarget
 
 class CompletedJobForm(forms.ModelForm):
     class Meta:
@@ -13,3 +13,9 @@ class AbsenceForm(forms.ModelForm):
         model = Absence
         fields = ('duration', 'date')
         widgets = {'date': forms.DateInput(attrs={'type': 'date'}),}
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = ProfileTarget
+        fields = ('daily_target',)

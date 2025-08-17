@@ -2,5 +2,54 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
+<!-- Profile -->
+<div class="container text-center mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1> Profile </h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table custom-table">
+            <tbody class="custom-table-body">
+                <tr>
+                    <td class="lead">Target</td>
+                    <td class="col-4">{{ target }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table custom-table">
+            <tbody class="custom-table-body">
+                <tr>
+                    <td class="lead">Daily hours</td>
+                    <td class="col-4">8 hrs</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table custom-table">
+            <tbody class="custom-table-body">
+                <tr>
+                    <td class="lead">Rostered days off</td>
+                    <td class="col-4">Sat-Sun</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Profile Form -->
+<div class="container my-3">
+    <div class="row justify-content-center">
+        <div class="col-8 text-center">
+            <form method="post">
+                {% csrf_token %}
+                {{ profile_form | crispy }}
+                <button id="" type="submit" class="btn custom-button-edit">Edit Settings</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db.models import Sum
 from django.views import generic
 from datetime import date, timedelta
-from .forms import CompletedJobForm, AbsenceForm
+from .forms import CompletedJobForm, AbsenceForm, ProfileForm
 from .models import CompletedJob, Absence
 
 # Create your views here.
@@ -12,36 +12,43 @@ def job_tracker(request):
     user = request.user
     today = date.today()
     start_of_week = today - timedelta(days= today.weekday())
-    end_of_week = start_of_week + timedelta(days=4)
+    end_of_week = start_of_week + timedelta(days=6)
 
-    jobs = CompletedJob.objects.filter(user = user, completed_on__range=
-    (start_of_week, end_of_week)).values('completed_on').annotate(total_credits=Sum('job_type__credits'))
-    
+    # Dynamic rostered days
+    current_week = [start_of_week + timedelta(days=i) for i in range(7)]
+    rostered_days_off = user.profiletarget.days_off
+    working_days_raw = [d for d in current_week if d.strftime("%a") not in rostered_days_off]
+    working_days = []
+    for d in working_days_raw:
+        working_days.append(d.strftime("%a"))
+
     # Creates dict with the completed jobs of the current week {date:credits}
-    credits_by_day = {start_of_week + timedelta(days=i): 0 for i in range(7)}
+    jobs = CompletedJob.objects.filter(user= user, completed_on__in= working_days_raw).values('completed_on').annotate(total_credits=Sum('job_type__credits'))
+    credits_by_day = {d:0 for d in working_days_raw}
     for entry in jobs:
-        credits_by_day[entry['completed_on']] = float(entry["total_credits"])
+        if entry['completed_on'] in credits_by_day:
+            credits_by_day[entry['completed_on']] = float(entry["total_credits"])
     
     # Gets user's absences for current week and creates dict with the day and duration
     absences = Absence.objects.filter(user = user, date__range=(start_of_week, end_of_week))
-    absences_by_day = {a.date: float(a.duration) for a in absences}
+    absences_by_day = {a.date: float(a.duration) for a in absences if a.date in working_days_raw}
     
     # Calculates target and creates dict with day and the target
     daily_target = float(user.profiletarget.daily_target)
+    shift_hours = float(user.profiletarget.daily_hours)
+    # Adjusts daily target for users that are not on a standard 8h shift. 
+    adjusted_daily_target = (shift_hours * daily_target)/8
     adjusted_targets = {}
-    shift_hours = 8
-    for i in range(5):
-        current_day = start_of_week + timedelta(days=i)
+    for current_day in working_days_raw:
         absence = absences_by_day.get(current_day, 0)
-        adjusted = round(((shift_hours - absence) * daily_target) / shift_hours, 2)
+        adjusted = round(((shift_hours - absence) * adjusted_daily_target) / shift_hours, 2)
         adjusted_targets[current_day] = adjusted
     
     # Store all of the combined metrics for the week
     weekly_data = []
-    for i in range(5):
-        current_day = start_of_week + timedelta(days=i)
+    for current_day in working_days_raw:
         weekly_data.append({
-            "date": current_day,
+            "date": current_day.strftime("%a %d. %b"),
             "target": adjusted_targets[current_day],
             "credits": credits_by_day[current_day]
         })
@@ -169,4 +176,27 @@ def absence_delete(request, pk):
 
 
 def profile(request):
-    return render(request, "job_tracker/profile.html")
+    target = float(request.user.profiletarget.daily_target)
+    profile_form = ProfileForm()
+    return render(
+        request,
+        "job_tracker/profile.html",
+        {
+        "target": target,
+        "profile_form": profile_form,
+    })
+
+
+def profile_edit(request, pk):
+    if request.method == "POST":
+        target = get_object_or_404(ProfileForm, pk=pk)
+        profile_form = ProfileForm(data=request.POST, instance=target)
+        if profile_form.is_valid():
+            form = profile_form.save(commit=False)
+            form.user = request.user
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Target updated')
+        else:
+            messages.add_message(request, messages.SUCCESS, 'Error updating target')
+
+    return redirect('profile')

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -39,6 +40,18 @@ class Absence(models.Model):
 class ProfileTarget(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     daily_target = models.DecimalField(max_digits=3, decimal_places=2, default=4.25)
+    daily_hours = models.DecimalField(max_digits=4, decimal_places=2, default=8.00)
+    #PostgreSQL specific model field, ArrayField
+    DAYS_OF_WEEK = [
+        ("Mon", "Monday"),
+        ("Tue", "Tuesday"),
+        ("Wed", "Wednesday"),
+        ("Thu", "Thursday"),
+        ("Fri", "Friday"),
+        ("Sat", "Saturday"),
+        ("Sun", "Sunday"),
+    ]
+    days_off = ArrayField(models.CharField(max_length=3, choices=DAYS_OF_WEEK),default=list)
 
     def __str__(self):
         return f"Engineer:{self.user}, Target:{self.daily_target}"
