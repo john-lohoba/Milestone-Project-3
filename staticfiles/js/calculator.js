@@ -18,16 +18,12 @@ for(let credit of credits){
 // Calculates the sum of targets
 const initialValue = 0;
 const sumOfTargets = targetsArray.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
-weekTarget.innerText = sumOfTargets;
+weekTarget.innerText = sumOfTargets.toFixed(2);
 
 // Calculates the sum of credits
 const sumOfCredits = creditsArray.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
-totalDelivered.innerText = sumOfCredits;
+totalDelivered.innerText = sumOfCredits.toFixed(2);
 
 // Estimated Update message
 let update = Number(sumOfCredits - sumOfTargets).toFixed(2);
-if (update < 0){
-    estimatedUpdate.innerText = `${update}`;
-} else{
-    estimatedUpdate.innerText = update;
-}
+estimatedUpdate.innerText = update;
