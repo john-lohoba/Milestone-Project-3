@@ -13,6 +13,7 @@ def job_tracker(request):
     today = date.today()
     start_of_week = today - timedelta(days= today.weekday())
     end_of_week = start_of_week + timedelta(days=6)
+    job_form = CompletedJobForm()
 
     # Dynamic rostered days
     current_week = [start_of_week + timedelta(days=i) for i in range(7)]
@@ -53,23 +54,23 @@ def job_tracker(request):
             "credits": credits_by_day[current_day]
         })
     
-    # Create a form for submitting completed jobs
-    if request.method == "POST":
-        job_form = CompletedJobForm(request.POST)
-        if job_form.is_valid():
-            form = job_form.save(commit=False)
-            form.user = user
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'New job submitted')
-            return redirect('tracker')
-
-    job_form = CompletedJobForm()
     return render(
         request,
         "job_tracker/job-tracker.html",
         {"weekly_data": weekly_data,
          "job_form": job_form,
          })
+
+
+def job_post(request):
+    if request.method == "POST":
+        job_form = CompletedJobForm(request.POST)
+        if job_form.is_valid():
+            form = job_form.save(commit=False)
+            form.user = request.user
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'New job submitted')
+            return redirect('tracker')
 
 
 class CompletedJobList(generic.ListView):

@@ -40,20 +40,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link
+                        {% if request.path == index_url %}active" aria-current="page{% endif %}"  href="{% url 'index' %}">Home</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'tracker' %}">Tracker</a>
+                        <a class="nav-link
+                        {% if request.path == tracker_url %}active" aria-current="page{% endif %}" href="{% url 'tracker' %}">Tracker</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'job-history' %}">Job History</a>
+                        <a class="nav-link
+                        {% if request.path == history_url %}active" aria-current="page{% endif %}" href="{% url 'job-history' %}">Job History</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'absences' %}">Absences</a>
+                        <a class="nav-link
+                        {% if request.path == absences_url %}active" aria-current="page{% endif %}" href="{% url 'absences' %}">Absences</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        <a class="nav-link
+                        {% if request.path == profile_url%}active" aria-current="page{% endif %}" href="{% url 'profile' %}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == logout_url %}active" aria-current="page{% endif %}"
@@ -75,7 +80,7 @@
     </nav>
 
     <!-- Django Messages -->
-    <div class="container">
+    <div class="container mt-2">
         <div class="row text-center">
             <div class="col-md-8 offset-md-2">
                 {% for message in messages %}
@@ -93,7 +98,6 @@
         {% block content %}
         {% endblock content %}
     </main>
-
 
     <!-- Footer -->
     <footer class="mt-auto">
