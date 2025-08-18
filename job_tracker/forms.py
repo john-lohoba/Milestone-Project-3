@@ -16,6 +16,7 @@ class AbsenceForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    days_off = forms.MultipleChoiceField(choices=ProfileTarget.DAYS_OF_WEEK, widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = ProfileTarget
-        fields = ('daily_target',)
+        fields = ('daily_target','daily_hours','days_off')

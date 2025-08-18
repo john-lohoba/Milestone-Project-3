@@ -26,6 +26,12 @@ h3 {
     color: var(--secondary-color);
 }
 
+.lead {
+    color: var(--primary-color);
+    font-size: large;
+    font-family: var(--secondary-font);
+}
+
 /* Navigation Bar */
 #navbar {
     background-color: var(--secondary-color);

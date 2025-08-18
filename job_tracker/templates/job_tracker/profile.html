@@ -24,7 +24,7 @@
             <tbody class="custom-table-body">
                 <tr>
                     <td class="lead">Daily hours</td>
-                    <td class="col-4">8 hrs</td>
+                    <td class="col-4">{{ daily_hours }} hrs</td>
                 </tr>
             </tbody>
         </table>
@@ -32,24 +32,48 @@
             <tbody class="custom-table-body">
                 <tr>
                     <td class="lead">Rostered days off</td>
-                    <td class="col-4">Sat-Sun</td>
+                    <td class="col-4">{% for day in days_off %} {{day}} {% endfor %}</td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <div class="col text-center">
+            <button id="profileEditSettings" class="btn custom-button-edit" data-profile_id="{{ profile_obj.id }}">Edit Profile Settings</button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div>
+            <p class="lead"> <strong>Note:</strong> if you work a standard 8hr Mon-Fri shift there is no need to modify your
+                profile settings as these are set as default.</p>
+        </div>
+    </div>
 </div>
 
-<!-- Profile Form -->
-<div class="container my-3">
-    <div class="row justify-content-center">
-        <div class="col-8 text-center">
-            <form method="post">
-                {% csrf_token %}
-                {{ profile_form | crispy }}
-                <button id="" type="submit" class="btn custom-button-edit">Edit Settings</button>
-            </form>
+
+<!-- Profile Form Modal -->
+<div class="modal fade" id="profileEditModal" tabindex="-1" aria-labelledby="profileEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Profile Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="profileEditForm" method="post">
+                    {% csrf_token %}
+                    {{ profile_form | crispy }}
+                    <div class="modal-footer">
+                        <button type="button" class="btn custom-button-primary" data-bs-dismiss="modal">Close</button>
+                        <button id="profileEditButton" type="submit" class="btn custom-button-edit">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
 {% endblock content %}
+{% block extras %}
+<script src="{% static 'js/profile.js' %}"></script>
+{% endblock %}

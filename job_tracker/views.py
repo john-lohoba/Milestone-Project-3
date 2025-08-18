@@ -4,7 +4,7 @@ from django.db.models import Sum
 from django.views import generic
 from datetime import date, timedelta
 from .forms import CompletedJobForm, AbsenceForm, ProfileForm
-from .models import CompletedJob, Absence
+from .models import CompletedJob, Absence, ProfileTarget
 
 # Create your views here.
 
@@ -177,26 +177,32 @@ def absence_delete(request, pk):
 
 def profile(request):
     target = float(request.user.profiletarget.daily_target)
+    daily_hours = float(request.user.profiletarget.daily_hours)
+    days_off = request.user.profiletarget.days_off
+    profile_obj = request.user.profiletarget
     profile_form = ProfileForm()
     return render(
         request,
         "job_tracker/profile.html",
         {
         "target": target,
+        "daily_hours": daily_hours,
+        "days_off": days_off,
+        "profile_obj": profile_obj,
         "profile_form": profile_form,
     })
 
 
 def profile_edit(request, pk):
     if request.method == "POST":
-        target = get_object_or_404(ProfileForm, pk=pk)
+        target = get_object_or_404(ProfileTarget, pk=pk)
         profile_form = ProfileForm(data=request.POST, instance=target)
         if profile_form.is_valid():
             form = profile_form.save(commit=False)
             form.user = request.user
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Target updated')
+            messages.add_message(request, messages.SUCCESS, 'Settings updated')
         else:
-            messages.add_message(request, messages.SUCCESS, 'Error updating target')
+            messages.add_message(request, messages.SUCCESS, 'Error updating settings')
 
     return redirect('profile')
