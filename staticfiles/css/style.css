@@ -24,6 +24,7 @@ h2,
 h3 {
     font-family: var(--secondary-font);
     color: var(--secondary-color);
+    margin-top: 2vh;
 }
 
 .lead {
@@ -38,8 +39,21 @@ h3 {
 }
 
 /* Footer */
-footer { 
+footer {
+    font-family: var(--secondary-font);
     background-color: var(--secondary-color);
+    color: var(--highlight-color-light);
+}
+
+.social-links i {
+    color: var(--highlight-color-light);
+    font-size: 1.6rem;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.social-links i:hover {
+    color: var(--highlight-color);
 }
 
 /* Buttons */
@@ -97,4 +111,33 @@ footer {
 
 #estimatedUpdate {
     font-size: 2rem;
+}
+
+/* Home page */
+
+#hero {
+    height: 55vh;
+    display: flex;
+    align-items: center;
+}
+
+.rich-text {
+    background-color: var(--highlight-color-light);
+    margin: 4px;
+    padding: 4px;
+    min-height: 100px;
+    border-radius: 5px;
+}
+
+#benefits-list {
+    list-style-type: none;
+}
+
+#benefits-list li {
+    padding-top: 10px;
+}
+
+#goal-text {
+    font-size: large;
+    font-family: var(--secondary-font);
 }
