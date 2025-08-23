@@ -5,11 +5,9 @@
 :root {
     --primary-font:"Roboto", sans-sefir;
     --secondary-font:"Nunito", sans-sefir;
-    /* --primary-color:#1F7A8C; turquoise */
-    --primary-color:#3E8096;
-    --secondary-color:#022B3A; /* dark turquoise */
-    --highlight-color:#BFDBF7; /* light blue */
-    /* --highlight-color-light:#E1E5F2; light grey */
+    --primary-color:#27545D;
+    --secondary-color:#022B3A;
+    --highlight-color:#BFDBF7; 
     --highlight-color-light:#F0F0F0;
 }
 
@@ -114,7 +112,6 @@ footer {
 }
 
 /* Home page */
-
 #hero {
     height: 55vh;
     display: flex;
