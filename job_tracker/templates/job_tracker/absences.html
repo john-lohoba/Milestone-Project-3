@@ -14,14 +14,6 @@
 <div class="container mt-3">
     <div class="row">
         <table class="table custom-table">
-            <!-- <thead>
-                <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Duration</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead> -->
             {% for absence in absence_list %}
             {% if user.is_authenticated and absence.user == user %}
             <tbody class="custom-table-body">
@@ -69,7 +61,7 @@
 </div>
 
 <!-- Absence Edit Modal -->
-<div class="modal fade" id="absenceEditModal" tabindex="-1" aria-labelledby="absenceEditModalLabel" aria-hidden="true">
+<div class="modal fade" id="absenceEditModal" tabindex="-1" aria-labelledby="absenceEditModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,7 +83,7 @@
 </div>
 
 <!-- Absence Delete Modal -->
-<div class="modal fade" id="absenceDeleteModal" tabindex="-1" aria-labelledby="absenceDeleteModalLabel"
+<div class="modal fade" id="absenceDeleteModal" tabindex="-1" aria-labelledby="absenceDeleteModal"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
