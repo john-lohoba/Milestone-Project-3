@@ -24,6 +24,7 @@ h2,
 h3 {
     font-family: var(--secondary-font);
     color: var(--secondary-color);
+    margin-top: 2vh;
 }
 
 .lead {
@@ -38,8 +39,21 @@ h3 {
 }
 
 /* Footer */
-footer { 
+footer {
+    font-family: var(--secondary-font);
     background-color: var(--secondary-color);
+    color: var(--highlight-color-light);
+}
+
+.social-links i {
+    color: var(--highlight-color-light);
+    font-size: 1.6rem;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.social-links i:hover {
+    color: var(--highlight-color);
 }
 
 /* Buttons */
