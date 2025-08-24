@@ -2,6 +2,9 @@ from django import forms
 from .models import CompletedJob, Absence, ProfileTarget
 
 class CompletedJobForm(forms.ModelForm):
+    """
+    Form class for users to submit completed jobs.
+    """
     class Meta:
         model = CompletedJob
         fields = ('job_type', 'completed_on')
@@ -9,6 +12,9 @@ class CompletedJobForm(forms.ModelForm):
 
 
 class AbsenceForm(forms.ModelForm):
+    """
+    Form class for users to record absences.
+    """
     class Meta:
         model = Absence
         fields = ('duration', 'date')
@@ -16,6 +22,9 @@ class AbsenceForm(forms.ModelForm):
 
 
 class ProfileForm(forms.ModelForm):
+    """
+    Form class for users to modify their profile settings.
+    """
     days_off = forms.MultipleChoiceField(choices=ProfileTarget.DAYS_OF_WEEK, widget=forms.CheckboxSelectMultiple)
     class Meta:
         model = ProfileTarget

@@ -9,6 +9,23 @@ from .models import CompletedJob, Absence, ProfileTarget
 # Create your views here.
 
 def job_tracker(request):
+    """
+    Renders the users performance metrics for the current week.
+    Displays an agregated data from :model:`CompletedJob`, 
+    :model:`ProfileTarget and :model:`Absence`.
+
+    **Context**
+    
+    `weekly_data`
+        an instance of all the agragated data from
+        :model:`ProfileTarget`, :model:`CompletedJob` and
+        :model:`Absence`.
+    `job_form`
+        an instance of :form:`.forms.CompletedJobForm`
+
+    **Template**
+    :template:`job_tracker/job-tracker.html`
+    """
     user = request.user
     today = date.today()
     start_of_week = today - timedelta(days= today.weekday())
@@ -63,6 +80,13 @@ def job_tracker(request):
 
 
 def job_post(request):
+    """
+    Display an individual :model:`CompletedJob`.
+
+    **Context**
+    `job_form`
+        an instance of :form:`CompletedJobForm`
+    """
     if request.method == "POST":
         job_form = CompletedJobForm(request.POST)
         if job_form.is_valid():
@@ -74,6 +98,18 @@ def job_post(request):
 
 
 class CompletedJobList(generic.ListView):
+    """
+    Renders a list of the users completed jobs.
+    Display instances of :model:`CompletedJob`,
+    related to the user.
+
+    **Context**
+    `job_form`
+        an instance of :form:`CompletedJobForm`
+
+    **Template**
+    :template:`job_tracker/job-history.html"
+    """
     model = CompletedJob
     template_name = "job_tracker/job-history.html"
     paginate_by = 7
@@ -92,6 +128,15 @@ class CompletedJobList(generic.ListView):
 
 
 def job_edit(request, pk):
+    """
+    Display an individual job for edit.
+
+    **Context**
+    `job`
+        a single completed job related to the user. 
+    `job_form`
+        an instance of :form:`CompletedJobForm`.
+    """
     if request.method == "POST":
         job = get_object_or_404(CompletedJob, pk=pk)
         job_form = CompletedJobForm(data=request.POST, instance=job)
@@ -108,6 +153,13 @@ def job_edit(request, pk):
 
 
 def job_delete(request, pk):
+    """
+    Delete an individual job
+
+    **Context**
+    `job`
+        a single completed job related to the user.
+    """
     job = get_object_or_404(CompletedJob, pk=pk)
     if job.user == request.user:
         job.delete()
@@ -119,6 +171,17 @@ def job_delete(request, pk):
 
 
 class AbsencesList(generic.ListView):
+    """
+    Renders a list of the users absences.
+    Displays instances of :model:`Absence` related to the user.
+
+    **Context**
+    `absence_form`
+        an instance of :form:`AbsenceForm`.
+    
+    **Template**
+    :template:`job_tracker/absences.html`.
+    """
     model = Absence
     template_name = "job_tracker/absences.html"
     paginate_by = 7
@@ -137,6 +200,13 @@ class AbsencesList(generic.ListView):
 
 
 def absence_post(request):
+    """
+    Display an individual :model:`Absence`
+    
+    **Context**
+    `absence_form`
+        an instance of :form:`AbsenceForm`
+    """
     if request.method == "POST":
         absence_form = AbsenceForm(request.POST)
         if absence_form.is_valid():
@@ -151,6 +221,15 @@ def absence_post(request):
 
 
 def absence_edit(request, pk):
+    """
+    Display a single absence for edit.
+    **Context**
+    
+    `absence`
+        a single absence related to the user.
+    `absence_form`
+        an instance of :form:`AbsenceForm`.
+    """
     if request.method == "POST":
         absence = get_object_or_404(Absence, pk=pk)
         absence_form = AbsenceForm(data=request.POST, instance=absence)
@@ -166,6 +245,13 @@ def absence_edit(request, pk):
 
 
 def absence_delete(request, pk):
+    """
+    Delete an individual absence
+    **Context**
+    
+    `absence`
+        a single absence related to the user.
+    """
     absence = get_object_or_404(Absence, pk = pk)
     if absence.user == request.user:
         absence.delete()
@@ -177,6 +263,25 @@ def absence_delete(request, pk):
 
 
 def profile(request):
+    """
+    Render the users profile settings.
+    Displays an instance of :model:`ProfileTarget`
+    **Context**
+
+    `target`
+        target related to the user from :model:`ProfileTarget`.
+    `daily_hours`
+        daily working hours related to the user from :model:`ProfileTarget`.
+    `days_off`
+        rostered days off related to the user from :model:`ProfileTarget`.
+    `profile_obj`
+        instance of :model:`ProfileTarget`.
+    `profile_form`
+        instance of :form:`ProfileForm`.    
+
+    **Template**
+    :template:`job_tracker/profile.html`.
+    """
     target = float(request.user.profiletarget.daily_target)
     daily_hours = float(request.user.profiletarget.daily_hours)
     days_off = request.user.profiletarget.days_off
@@ -195,6 +300,15 @@ def profile(request):
 
 
 def profile_edit(request, pk):
+    """
+    Display the users Profile settings for edit from :model:`ProfileTarget`.
+    **Context**
+    
+    `target`
+        the target related to the user.
+    `profile_form`
+        an instance of :form:`ProfileForm.
+    """
     if request.method == "POST":
         target = get_object_or_404(ProfileTarget, pk=pk)
         profile_form = ProfileForm(data=request.POST, instance=target)
