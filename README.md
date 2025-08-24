@@ -142,6 +142,10 @@ All JS documents were tested with no major errors. The only errors were due to  
 #### Pep8
 All python documents were tested to meet pep8 standards.  
 
+#### Google Lighthouse
+All pages were tested with lighthouse for performance, accessibility and best practice. The app consistently scored over 80, 95 and 100 respectively.  
+The only warning was for insufficient contrast of the Delete button's background and foreground. This was tested again with [webaim.org](https://webaim.org/resources/contrastchecker/) and passed for graphical objects and user interface components.
+
 With more time and in future deployments I would like to use Unit tests for the main functions of each app.
 
 ## Credits
