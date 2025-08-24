@@ -1,8 +1,10 @@
-const editModal = new bootstrap.Modal(document.getElementById("absenceEditModal"));
+const editModal = new bootstrap.Modal(
+    document.getElementById("absenceEditModal"));
 const editButtons = document.getElementsByClassName("btn-absence-edit");
 const editForm = document.getElementById("absenceEditForm");
 
-const deleteModal = new bootstrap.Modal(document.getElementById("absenceDeleteModal"));
+const deleteModal = new bootstrap.Modal(
+    document.getElementById("absenceDeleteModal"));
 const deleteButtons = document.getElementsByClassName("btn-absence-delete");
 const deleteForm = document.getElementById("absenceDeleteForm");
 const deleteConfirm = document.getElementById("absenceDeleteConfirm");
