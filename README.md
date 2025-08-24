@@ -1,4 +1,5 @@
-# Ctrack
+# CTrack
+[view live site](https://ctrack-app-7613567699ef.herokuapp.com/)
 ## UX/UI
 ### Project Goals
 The primary goal of CTrack is to provide a clean and intuitive app for users to track their performance.
@@ -114,6 +115,7 @@ Allowing the site admin to modify the home/about section through the admin page.
 **Front-end:** Javascript, CSS, HTML and Bootstrap.  
 **Back-end:** Python and PostgreSQL database.  
 **Version Control:** Git & github.  
+**Deployment:** The site is deployed on Heroku.
 
 ## Database ERD
 ![](static/images/ctrack_erd.svg)
