@@ -17,11 +17,13 @@ for(let credit of credits){
 
 // Calculates the sum of targets
 const initialValue = 0;
-const sumOfTargets = targetsArray.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+const sumOfTargets = targetsArray.reduce(
+    (accumulator, currentValue) => accumulator + currentValue, initialValue);
 weekTarget.innerText = sumOfTargets.toFixed(2);
 
 // Calculates the sum of credits
-const sumOfCredits = creditsArray.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
+const sumOfCredits = creditsArray.reduce(
+    (accumulator, currentValue) => accumulator + currentValue, initialValue);
 totalDelivered.innerText = sumOfCredits.toFixed(2);
 
 // Estimated Update message
