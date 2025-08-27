@@ -13,7 +13,7 @@ class JobType(models.Model):
     credits = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __str__(self):
-        return f"{self.name} ({self.credits} credits)"
+        return f"{self.name}"
 
 
 class CompletedJob(models.Model):
@@ -29,7 +29,7 @@ class CompletedJob(models.Model):
         ordering = ["-completed_on"]
 
     def __str__(self):
-        return f"{self.job_type.credits} credits"
+        return f"{self.job_type}, completed by {self.user}"
 
 
 class Absence(models.Model):
