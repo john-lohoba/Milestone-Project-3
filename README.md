@@ -1,4 +1,5 @@
 # CTrack
+![Mockup image with 3 device screens](static/images/mockup_design.png)
 [view live site](https://ctrack-app-7613567699ef.herokuapp.com/)
 ## UX/UI
 ### Project Goals
@@ -118,7 +119,7 @@ Allowing the site admin to modify the home/about section through the admin page.
 **Deployment:** The site is deployed on Heroku.
 
 ## Database ERD
-![](static/images/ctrack_erd.svg)
+![database erd image](static/images/ctrack_erd.svg)
 
 ## Testing
 ### Manual Testing
