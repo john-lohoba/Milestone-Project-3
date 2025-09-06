@@ -1,9 +1,9 @@
 # CTrack
-![Mockup image with 3 device screens](static/images/mockup_design.png)
-[view live site](https://ctrack-app-7613567699ef.herokuapp.com/)
+![Mockup image with 3 device screens](static/images/mockup_design.png)  
+**[View live site](https://ctrack-app-7613567699ef.herokuapp.com/)**
 ## UX/UI
 ### Project Goals
-The primary goal of CTrack is to provide a clean and intuitive app for users to track their performance.
+The primary goal of CTrack is to provide a clean and intuitive app for users to track their performance.  
 CTrack has one main target audience: Engineer colleagues from my current role.
 
 #### User Goals:
@@ -13,6 +13,7 @@ The engineer has a daily target that should be achieved. This target is an amoun
 #### Business Goals:
 Since targets are adjusted with any absences, each job type is allocated a different amount of credits, and these credits are based on decimals of an hour, it can get very tricky for the engineer to track accurately their performance.
 When using Ctrack the engineer can effortlessly track and understand their current metrics.  
+
 CTrack allows the user to:  
 * Log completed job.
 * Record any absences.
@@ -88,10 +89,17 @@ The colour palette was chosen from coolors.co and then adjusted for adequate con
 
 ## Features
 ### Existing Features
-User Authentication:
+**User Authentication:**  
 Engineers can create an account and login to have access to the main functions. This way all the data is saved and filtered so the user can only see and modify what's theirs. 
-User authentication is handled by the allauth python package.
-#### Getting Started
+User authentication is handled by the allauth python package.  
+
+**Dynamic Target:**  
+The daily and weekly target is adjusted automatically when a user logs an absence or alters their profile settings.
+
+**Job & Absence History:**  
+All the completed jobs and absences from the user are stored and saved in our database. No more writing down on paper or creating multiple spreadsheets for every working week.
+
+### Getting Started
 Getting started is very simple, you only need to follow these two steps:  
 * Create an account in the register page.
 * Adjust your Profile settings if needed. (Daily target, weekly hours and rostered days off).
@@ -119,6 +127,11 @@ Allowing the site admin to modify the home/about section through the admin page.
 **Deployment:** The site is deployed on Heroku.
 
 ## Database ERD
+* **Job Type:** Available only to the admin. For creating or editing different types of jobs and the allocated credits for each. Each job type must be unique.
+* **Completed Jobs:** Users can submit the jobs that they have completed. Has a foreign Key relationship with Job types.
+* **Absence:** Users can log any absences they have on their rostered working days.
+* **Profile Target:** Stores the Users daily target, daily shift hours and rostered days off.  
+
 ![database erd image](static/images/ctrack_erd.svg)
 
 ## Testing
@@ -130,9 +143,12 @@ All forms were manually tested for:
 * Feedback when submitted properly.
 * Warnings before deleting any data. 
 
+All internal links were checked.  
+All social links were checked.
+
 ### Automatic Testing
 #### W3C Markup Validation
-All pages were tested with W3C markup validator with no major error. The only errors were on the Sign Up and Absence page forms. This is due to using crispy forms.
+All pages were tested with W3C markup validator with no major error. The only error was on the Sign Up page form. This is due to using crispy forms.
 
 #### W3C CSS Validation
 This tested with no errors.
