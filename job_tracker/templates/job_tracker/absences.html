@@ -71,7 +71,7 @@
             <div class="modal-body">
                 <form id="absenceEditForm" method="post">
                     {% csrf_token %}
-                    {{ absence_form | crispy }}
+                    {{ absence_edit_form | crispy }}
                     <div class="modal-footer">
                         <button type="button" class="btn custom-button-primary" data-bs-dismiss="modal">Close</button>
                         <button id="absenceEditButton" type="submit" class="btn custom-button-edit">Submit</button>

@@ -206,6 +206,7 @@ class AbsencesList(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['absence_form'] = AbsenceForm()
+        context['absence_edit_form'] = AbsenceForm(prefix="edit")
         return context
 
 
@@ -243,9 +244,12 @@ def absence_edit(request, pk):
     """
     if request.method == "POST":
         absence = get_object_or_404(Absence, pk=pk)
-        absence_form = AbsenceForm(data=request.POST, instance=absence)
-        if absence_form.is_valid():
-            form = absence_form.save(commit=False)
+        absence_edit_form = AbsenceForm(
+            data=request.POST,
+            instance=absence,
+            prefix="edit")
+        if absence_edit_form.is_valid():
+            form = absence_edit_form.save(commit=False)
             form.user = request.user
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Absence Updated')
