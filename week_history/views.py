@@ -106,7 +106,7 @@ def week_history(request):
             }
         )
 
-    paginator = Paginator(weeks, 3)
+    paginator = Paginator(weeks, 4)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
