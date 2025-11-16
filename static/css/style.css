@@ -19,7 +19,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h5 {
     font-family: var(--secondary-font);
     color: var(--secondary-color);
     margin-top: 2vh;
@@ -65,6 +66,17 @@ footer {
 .custom-button-primary:hover {
     background-color: var(--highlight-color-light);
     color: var(--primary-color);
+}
+
+.custom-button-secondary {
+    background-color: var(--highlight-color-light);
+    border: none;
+    color: var(--primary-color);
+}
+
+.custom-button-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--highlight-color-light);
 }
 
 .custom-button-edit {

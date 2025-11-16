@@ -18,10 +18,10 @@
           <div class="mb-4">
             <div class="row align-items-center mb-2">
               <div class="col-10">
-                <h3>{{ week.monday|date:"M d" }} – {{ week.sunday|date:"M d, y" }}</h3>
+                <h5>{{ week.monday|date:"M d" }} – {{ week.sunday|date:"M d, y" }}</h5>
               </div>
               <div class="col-2 ">
-                <button onclick="showWeeklyTable('{{week.monday|date:"DdmY"}}')" id="toggle-btn-{{week.monday|date:'DdmY'}}" class="btn custom-button-primary">▼</button>
+                <button onclick="showWeeklyTable('{{week.monday|date:"DdmY"}}')" id="toggle-btn-{{week.monday|date:'DdmY'}}" class="btn custom-button-secondary py-1">▼</button>
               </div>
             </div>
             <table class="table table-borderless custom-update-table">
@@ -34,7 +34,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="week-estimated-update">{{week.update}}</td>
+                  <td class="">{{week.update}}</td>
                   <td>{{week.target}}</td>
                   <td>{{week.total_credits}}</td>
                 </tr>
@@ -99,9 +99,13 @@
     if (table.style.display === "none") {
       table.style.display = "block";
       button.textContent ="▲";
+      button.classList.remove("custom-button-secondary");
+      button.classList.add("custom-button-primary");
     } else{
       table.style.display = "none";
       button.textContent = "▼";
+      button.classList.remove("custom-button-primary");
+      button.classList.add("custom-button-secondary");
     }
   }
 </script>
