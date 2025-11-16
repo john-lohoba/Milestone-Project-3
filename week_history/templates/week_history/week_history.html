@@ -9,15 +9,20 @@
         </div>
     </div>
 </div>
-<div class="container mt-2">
+<div class="container mt-3">
     <div class="row">
         <div class="col-md-8 offset-md-2">
           <!-- Weekly Summary-->
           {% for week in weeks %}
-          <div>
-            <div class="row mb-2">
-            <h3 class="col-10">{{ week.monday|date:"M d" }} – {{ week.sunday|date:"M d, y" }}</h3>
-            <button onclick="showWeeklyTable('{{week.monday}}')" class="col-1 btn custom-button-primary">+</button>
+          {% if user.is_authenticated %}
+          <div class="mb-4">
+            <div class="row align-items-center mb-2">
+              <div class="col-10">
+                <h3>{{ week.monday|date:"M d" }} – {{ week.sunday|date:"M d, y" }}</h3>
+              </div>
+              <div class="col-2 ">
+                <button onclick="showWeeklyTable('{{week.monday|date:"DdmY"}}')" id="toggle-btn-{{week.monday|date:'DdmY'}}" class="btn custom-button-primary">▼</button>
+              </div>
             </div>
             <table class="table table-borderless custom-update-table">
               <thead>
@@ -29,7 +34,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td id="week-estimated-update">{{week.update}}</td>
+                  <td class="week-estimated-update">{{week.update}}</td>
                   <td>{{week.target}}</td>
                   <td>{{week.total_credits}}</td>
                 </tr>
@@ -38,7 +43,7 @@
           </div>
 
           <!-- Daily Breakdown of week above, stays hidden until expand btn is pressed -->
-          <div id="week-{{week.monday}}-breakdown" style="display: none;">
+          <div id="week-{{week.monday|date:'DdmY'}}-breakdown" style="display: none;">
             <table class="table custom-table mb-4">
               <thead class="table custom-table-head">
                 <tr>
@@ -66,9 +71,22 @@
               </tbody>
             </table>
           </div>
-           {% endfor %}
+          {% endif %}
+          {% endfor %}
         </div>
     </div>
+    {% if page_obj.has_other_pages %}
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li><a href="?page={{ page_obj.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
 </div>
 
 {% endblock content %}
@@ -76,12 +94,15 @@
 <script>
   function showWeeklyTable(id) {
     var table = document.getElementById(`week-${id}-breakdown`);
+    var button = document.getElementById(`toggle-btn-${id}`);
+
     if (table.style.display === "none") {
       table.style.display = "block";
+      button.textContent ="▲";
     } else{
       table.style.display = "none";
+      button.textContent = "▼";
     }
   }
 </script>
 {% endblock %}
-

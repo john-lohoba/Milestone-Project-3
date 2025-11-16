@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Sum, DecimalField
 from django.db.models.functions import TruncWeek, TruncDate
 from django.shortcuts import render
@@ -99,17 +100,22 @@ def week_history(request):
                 "total_credits": round(credits, 2),
                 "total_absence": round(absence, 2),
                 "target": target,
-                "update": update,
+                "update": format(update, ".2f"),
                 "rostered_days": rostered_days,
                 "jobs_by_day": jobs_by_day_complete,
             }
         )
 
+    paginator = Paginator(weeks, 3)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         "week_history/week_history.html",
         {
-            "weeks": weeks,
+            "weeks": page_obj.object_list,
             "jobs_by_week_array": jobs_by_week_array,
+            "page_obj": page_obj,
         },
     )

@@ -5,6 +5,7 @@
 {% url 'job-history' as history_url %}
 {% url 'absences' as absences_url %}
 {% url 'profile' as profile_url %}
+{% url 'week-history' as week_history_url %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
@@ -55,6 +56,11 @@
                         <a class="nav-link
                         {% if request.path == tracker_url %}active" aria-current="page{% endif %}"
                             href="{% url 'tracker' %}">Tracker</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link
+                        {% if request.path == week_history_url %}active" aria-current="page{% endif %}"
+                            href="{% url 'week-history' %}">Week History</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link
@@ -118,7 +124,7 @@
                     <p>Made by Jsl</p>
                 </div>
                 <div class="col-12 social-links">
-                    <a href="https://github.com/John-SSL/Milestone-Project-3" target="_blank"
+                    <a href="https://github.com/john-lohoba/Milestone-Project-3" target="_blank"
                         aria-label="Visit my github page (opens in new tab)" rel="nooper"><i
                             class="fa-brands fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/john-lohoba-software-dev/" target="_blank"

@@ -13,15 +13,7 @@
 <div class="container mt-3">
     <div class="row">
         <table class="table custom-table">
-            <!-- <thead>
-                 <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Job Type</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                </tr> 
-            </thead> -->
-            {% for job in completedjob_list %}
+           {% for job in completedjob_list %}
             {% if user.is_authenticated and job.user == user %}
             <tbody class="custom-table-body">
                 <tr>
