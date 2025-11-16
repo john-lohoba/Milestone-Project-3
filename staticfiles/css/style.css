@@ -19,7 +19,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h5 {
     font-family: var(--secondary-font);
     color: var(--secondary-color);
     margin-top: 2vh;
@@ -67,6 +68,17 @@ footer {
     color: var(--primary-color);
 }
 
+.custom-button-secondary {
+    background-color: var(--highlight-color-light);
+    border: none;
+    color: var(--primary-color);
+}
+
+.custom-button-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--highlight-color-light);
+}
+
 .custom-button-edit {
     background-color: #FADA5E;
 }
@@ -109,6 +121,16 @@ footer {
 
 #estimatedUpdate {
     font-size: 2rem;
+}
+
+/* Weekly history tables */
+.week-estimated-update {
+  font-size: 2rem;
+}
+
+.custom-table-head{
+  color: var(--highlight-color-light);
+  background-color: var(--primary-color);
 }
 
 /* Home page */
