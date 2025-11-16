@@ -111,6 +111,16 @@ footer {
     font-size: 2rem;
 }
 
+/* Weekly history tables */
+#week-estimated-update {
+  font-size: 2rem;
+}
+
+.custom-table-head{
+  color: var(--highlight-color-light);
+  background-color: var(--primary-color);
+}
+
 /* Home page */
 #hero {
     height: 55vh;
